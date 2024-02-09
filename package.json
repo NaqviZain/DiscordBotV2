@@ -1,0 +1,19 @@
+{
+  "name": "centrevillebot_njs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "centreville",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/voice": "^0.16.1",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.1",
+    "fdir": "^6.1.1",
+    "mongoose": "^8.1.1"
+  },
+  "type": "module"
+}
