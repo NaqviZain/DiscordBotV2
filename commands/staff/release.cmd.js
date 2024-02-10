@@ -51,11 +51,12 @@ export async function execute(interaction, client) {
     /**@type {import("discord.js").APIEmbed[]} */
     const resp_embed = [{
         title: "Session Release",
-        description: `<@${interaction.user.id}> is hosting!\n\n> Peacetime: **${pt}**\n> FRP Speeds: **${frp}**\n\n> Kick = Infraction\n\n> Read all server information before joining, all rules are strictly enforced.\n\n> ${link}`,
-        color: client.settings.color
+        description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.`,
+        color: client.settings.color,
     }]
 
     const msg = await interaction.channel?.send({
+        content: "@.everyone",
         embeds: resp_embed, 
     });
     
