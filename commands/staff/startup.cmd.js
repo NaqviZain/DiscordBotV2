@@ -1,3 +1,5 @@
+import { Message } from "discord.js";
+
 /**@type {import("../bot.js").Command} */
 export const data = {
     name: "startup",
@@ -7,7 +9,7 @@ export const data = {
         {
             type: 4, // INT Type
             name: "reactions",
-            description: "Amount off reacions",
+            description: "Amount of reactions",
             required: true,
             autocomplete: false,
             max_value: 25, 
@@ -24,7 +26,7 @@ export const data = {
  */
 export async function execute(interaction, client) {
     const reactions = interaction.options.getInteger("reactions");
-    const user = inteaction.member;
+    const user = interaction.member;
 
     /**@type {import("discord.js").APIEmbed[]} */
     const response = [{
@@ -33,21 +35,10 @@ export async function execute(interaction, client) {
         color: client.settings.color
     }]; 
 
-    const message = await interaction.reply({
-        content: "@everyone", 
-        embed: response,
-    })
-
-
-    /**@type {import("discord.js").APIEmbed[]} */
-    const log = [{
-        title: "Attempted Session Startup", 
-        description: `<@${user.id} has attempted to start a session with ${reactions} reactions.\n\n<t:${Date.now()/1000}:f>        `, 
-
-    }]
-
-    
-    await message.react("👍");
+    await interaction.reply({
+        content: "@.everyone", 
+        embeds: response,
+    });
 
 
 }

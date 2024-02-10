@@ -25,7 +25,7 @@ export async function execute(interaction, client) {
 
     /**@type {import("discord.js").APIEmbed[]} */
     const response = [{ 
-        description: `**Early Access**\n\n<@${interaction.member.id}> is hosting a session! ${reactions} reactions are required to start the session.`,
+        description: `**Early Access**\n\n`,
         color: client.settings.color,
         url: "https://www.google.com/search?q=hello+world"
     }];
@@ -50,8 +50,8 @@ export async function execute(interaction, client) {
     ]
 
     await interaction.channel?.send({
-        content: "@everyone", 
-        embed: [...response, ...hidden],
+        content: "@.everyone", 
+        embeds: [...response, ...hidden],
         components: r,
         allowedMentions: { parse: ['users', 'roles', 'everyone'] }
     });
