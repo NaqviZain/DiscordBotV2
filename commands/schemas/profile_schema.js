@@ -5,8 +5,11 @@ const profileSchema = new Schema({
     user_id: Number, 
     citations: Array, 
     vehicles: Array,
-    license: Boolean
+    license: Boolean,
+    blacklisted: Boolean
 }); 
+
+
 
 const Profile = model("Profile", profileSchema);
 export default Profile; 

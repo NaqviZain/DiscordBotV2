@@ -1,18 +1,10 @@
 /**@type {import("../bot.js").Command} */
 import Profile from '../schemas/profile_schema.js'; 
+import { ContextMenuCommandBuilder, ApplicationCommandType } from "discord.js";
 
 export const data = {
-    name: "profile",
-    type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
-    description: "Get your profile",
-    options: [
-        {
-            type: 9, // MENTIONABLE Type
-            name: "user",
-            description: "View another user's profile",
-            required: false
-        }
-    ],
+    name: "View Profile",
+    type: 3, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
     dm_permission: false, // ensures that the command cannot be used inside of dms
     default_member_permissions: 0 // u can use default member permission to lock cmds to certain permission levels, ex administrator, u can use permissionbitfield to get one if u cant via discord docs
 };
@@ -22,14 +14,14 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-    await interaction.deferReply({ ephemeral: true});
+    await interaction.deferReply({ephemeral: true});
 
     if (interaction.options.get('user') == null) {
         var user = interaction.user;
     } else if (interaction.options.get('user') != null) {
         var user = interaction.options.get('user').user;
     }
-
+    var user = interaction.options.getMessage('message').author;  
     if (user.bot == true) {
         return await interaction.editReply({ content: "You cannot view a bot's profile", ephemeral: true });
     }
@@ -73,6 +65,6 @@ export async function execute(interaction, client) {
         ]
     }];
     
-    await interaction.editReply({ embeds: response, components: r, ephemeral: false}); 
+    await interaction.editReply({ embeds: response, components: r, ephemeral:false }); 
     
 }
