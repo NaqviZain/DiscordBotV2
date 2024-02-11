@@ -70,8 +70,8 @@ export async function execute(interaction, client) {
             { name: "Citations", value: `${resp['citations'].length - 1}`, inline: true },
             { name: "Vehicles", value: `${resp['vehicles'].length - 1}`, inline: true },
             { name: "License", value: `${license}`, inline: true }
-        ]
-    }];
+        ],
+        thumbnail: {url: user.displayAvatarURL().toString()},}];
     
     await interaction.editReply({ embeds: response, components: r, ephemeral: false}); 
     
