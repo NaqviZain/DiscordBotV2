@@ -1,6 +1,8 @@
 import { Message } from "discord.js";
 import { ContextMenuCommandBuilder, ApplicationCommandType } from "discord.js";
 import Profile from "../schemas/profile_schema.js";
+import Config from "../schemas/config_schema.js";
+
 
 /**@type {import("../bot.js").Command} */
 export const data = {
@@ -13,11 +15,13 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
+  await interaction.deferReply({ ephemeral: true });
+
   const message = interaction.options.getMessage("message"); // get the message that was right clicked
   const messageContent = message.content; // get the content of the message
   const author = message.author; // author of the reported message
-  const reports_channel = process.env.reports_channel; // get the reports channel from the env
-  const channel = client.channels.cache.get(reports_channel); // get the channel from the cache
+  var resp = await Config.findOne({ config: "config"});
+  const channel = await client.channels.cache.get(resp['reports_channel']); // get the channel from the cache
   const user = interaction.user; // get the user who reported the message
 
   var resp = await Profile.findOne({ user_id: user.id });
@@ -42,7 +46,7 @@ export async function execute(interaction, client) {
 
   channel.send({ embeds: response }); // send the report to the reports channel
 
-  await interaction.reply({
+  await interaction.editReply({
     content:
       "Report anonymously sent! Remember that abusing this system will result in a blacklist from the bot & an infraction",
     ephemeral: true,
