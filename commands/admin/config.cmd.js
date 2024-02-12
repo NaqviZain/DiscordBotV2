@@ -1,5 +1,4 @@
 /**@type {import("../bot.js").Command} */
-
 import Config from "../schemas/config_schema.js";
 
 export const data = {
@@ -58,6 +57,7 @@ export async function execute(interaction, client) {
 
 async function logChannel(interaction, client) {
   const channel = interaction.options.getChannel("channel", true);
+  if (channel.type != 0) return await interaction.editReply({ content: "The channel must be a text channel", ephemeral: true }); 
   const id = channel.id;
   const resp = await Config.findOne({ config: "config" });
 
@@ -81,6 +81,7 @@ async function logChannel(interaction, client) {
 
 async function reportsChannel(interaction, client) {
   const channel = interaction.options.getChannel("reports", true);
+  if (channel.type != 0) return await interaction.editReply({ content: "The channel must be a text channel", ephemeral: true }); 
   const id = channel.id;
   const resp = await Config.findOne({ config: "config" });
 
