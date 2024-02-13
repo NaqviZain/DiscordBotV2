@@ -68,7 +68,6 @@ export async function execute(interaction, client) {
 }
 
 async function add(interaction, client) {
-  const registration_id = interaction.options.getNumber("registration-id");
   var resp = await Profile.findOne({ user_id: interaction.user.id });
   if (resp == null) {
     const new_profile = new Profile({
@@ -91,7 +90,8 @@ async function add(interaction, client) {
     'Model': vehicle_model,
     'Color': color, 
     'Plate': plate, 
-    'Id': id
+    'Id': id,
+    'OwnerID': interaction.user.id
   })
   resp.save(); 
   /**@type {import("discord.js").APIEmbed[]} */
@@ -111,28 +111,25 @@ async function add(interaction, client) {
 }
 
 async function remove(interaction, client) {
-  const channel = interaction.options.getChannel("reports", true);
-  if (channel.type != 0)
-    return await interaction.editReply({
-      content: "The channel must be a text channel",
-      ephemeral: true,
-    });
-  const id = channel.id;
-  const resp = await Config.findOne({ config: "config" });
+  const doc = await Profile.findOne({ user_id: interaction.user.id });
+  if (doc == null) {
+    interaction.editReply({
+      content:"You do not have any vehicles to remove" 
+    })
+  }  
+  const result = await Profile.updateOne(
+    { },
+    { $pull: { vehicles: { Id: parseInt(interaction.options.getNumber("registration-id"))} } }
+  );
 
-  if (resp == null) {
-    return await interaction.editReply({
-      content:
-        "No config found, this shouldn't be possible. Contact <@539213950688952320>",
-      ephemeral: true,
-    });
+  if (result.nModified === 0) {
+    interaction.editReply({
+      content: "No vehicle found with that ID"
+    })
+  } else {
+    interaction.editReply({
+      content: "Vehicle removed"
+    })
   }
 
-  resp.reports_channel = id; // set the reports channel to the channel id
-  await resp.save();
-
-  await interaction.editReply({
-    content: `Reports channel set to <#${id}>`,
-    ephemeral: true,
-  });
 }
