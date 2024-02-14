@@ -1,5 +1,5 @@
-/**@type {import("../bot.js").Command} */
 import Profile from "../schemas/profile_schema.js";
+/**@type {import("../bot.js").Command} */
 
 export const data = {
   name: "registration",

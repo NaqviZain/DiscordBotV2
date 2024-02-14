@@ -11,6 +11,12 @@ config();
     client.settings = {
         color: 0x121212, // put color hex here for embeds n shit wo #
         iconURL: '',
+        vehicles: (await import("./data/vehicles.json", { assert: { type: "json" } })).default,
+        vehicleColors: (await import("./data/vehicleColors.json", { assert: { type: "json" } })).default,
+        vehicleLimits: {
+            regular: 6,
+            special: 8
+        },
     };
     await client.init();
 })();
