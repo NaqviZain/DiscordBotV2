@@ -8,5 +8,9 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(int, client) {
-  const eaRoles = [];
+  const eaRoles = [1207328977379663902];
+  const roles = int.member.roles.cache
+  
+  const resp = int.message.embeds[1];
+  int.reply({embeds:[resp], ephemeral:true})
 }

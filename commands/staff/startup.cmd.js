@@ -26,7 +26,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({ephemeral:true})
+  await interaction.deferReply({})
   const reactions = interaction.options.getInteger("reactions");
   const user = interaction.member;
 
