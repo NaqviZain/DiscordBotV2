@@ -2,6 +2,30 @@
 export const data = {
   name: "reinvites",
   description: "Do Reinvites",
+  options: [
+    {
+      name: "peacetime",
+      description: "The time for peacetime",
+      required: true,
+      type: 3,
+      choices: [
+        {
+          name: "Normal",
+          value: "normal",
+        },
+        {
+          name: "Strict",
+          value: "strict",
+        },
+      ],
+    },
+    {
+      name: "link",
+      description: "Link to the session",
+      required: true,
+      type: 3,
+    },
+  ],
   type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
   dm_permission: false, // ensures that the command cannot be used inside of dms
   default_member_permissions: 0, // u can use default member permission to lock cmds to certain permission levels, ex administrator, u can use permissionbitfield to get one if u cant via discord docs
