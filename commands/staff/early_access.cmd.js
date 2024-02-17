@@ -46,7 +46,7 @@ export async function execute(interaction, client) {
       type: 1,
       /**@type {import("discord.js").APIButtonComponent[]} */
       components: [
-        { label: "Early Access", type: 2, style: 1, custom_id: "early_access" },
+        { label: "Early Access", type: 2, style: 1, custom_id:"early_access"},
       ],
     },
   ];

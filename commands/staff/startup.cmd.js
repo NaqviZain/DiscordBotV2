@@ -52,8 +52,10 @@ export async function execute(interaction, client) {
 
   channel.send({ embeds: log }); // send the report to the logs channel
 
-  await interaction.editReply({
+  let sending = await interaction.editReply({
     content: "@.everyone",
     embeds: response,
   });
+  await sending.react('👍');
+  
 }
