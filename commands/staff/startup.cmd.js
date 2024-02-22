@@ -3,7 +3,7 @@ import Config from "../schemas/config_schema.js";
 
 /**@type {import("../bot.js").Command} */
 export const data = {
-  name: "startup",
+  name: "session",
   type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
   description: "Start a session",
   options: [
