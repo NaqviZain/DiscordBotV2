@@ -2,7 +2,7 @@
 /**@type {import("../bot.js").Command} */
 export const data = {
   name: "reinvites",
-  description: "Do Reinvites",
+  description: "Do Re-Invites",
   options: [
     {
       name: "peacetime",
@@ -65,7 +65,7 @@ export async function execute(interaction, client) {
   const msg = await interaction.channel?.send({
     content: "@here",
     embeds: resp_embed,
-    allowedMentions: { parse: ["everyone", "roles", "users"] },
+    allowedMentions: { parse: ["here"] },
   });
 
   await interaction.deleteReply();
