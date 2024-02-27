@@ -16,7 +16,7 @@ export async function execute(interaction, client) {
 
   await interaction.channel?.send({
     content:
-      "The host is now setting up. Early access please refer to the designated early access channel.",
+      "Setting up! Public Services may ping the host in <#1152820015054192700>. Server Boosters may ping the host in <#1211487878538985492> ⁠for early access. Staff may now join.",
   });
 
   await interaction.deleteReply();
