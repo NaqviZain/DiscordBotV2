@@ -7,13 +7,6 @@ export const data = {
   description: "Start a session",
   options: [
     {
-      type: 4, // INT Type
-      name: "reactions",
-      description: "Amount of reactions",
-      required: true,
-      autocomplete: false,
-      max_value: 25,
-      min_value: 5,
     },
   ],
   dm_permission: false, // ensures that the command cannot be used inside of dms
@@ -25,8 +18,6 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({ ephemeral: true });
-  const reactions = interaction.options.getInteger("reactions");
   const user = interaction.member;
 
   /**@type {import("discord.js").APIEmbed[]} */
@@ -41,11 +32,11 @@ export async function execute(interaction, client) {
 
 
   let sending = await interaction.channel?.send({
-    content: "@here" "@Sessions",
+    content: "@here" "<@&1211464822370082846>",
     embeds: response,
-    allowedMentions: { parse: ["here"] ["Sessions"] },
+    allowedMentions: { parse: ["here"] ["<@&1211464822370082846>"] },
   });
-  await sending.react("👍");
+  await sending.react("✅");
   await interaction.deleteReply();
   
 }
