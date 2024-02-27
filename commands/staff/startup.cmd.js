@@ -34,7 +34,7 @@ export async function execute(interaction, client) {
     {
       title: "Session Startup",
       description: `<@${interaction.member.id}> is hosting a session! ${reactions} reactions are required to start the session.`,
-      color: client.settings.color,
+      color: 0xFFC0CB,
     },
   ];
 

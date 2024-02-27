@@ -1,4 +1,3 @@
-import { Embeds } from "../data/mongodb.js";
 
 /**@type {import("../bot.js").Command} */
 export const data = {
