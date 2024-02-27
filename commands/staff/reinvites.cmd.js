@@ -58,7 +58,7 @@ export async function execute(interaction, client) {
     {
       title: "Session Re-Invites",
       description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.\n\n> ${joinSession}`,
-      color: 0xffffff
+      color: 0xffffff,
     },
   ];
 
