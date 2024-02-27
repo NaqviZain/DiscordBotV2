@@ -1,4 +1,4 @@
-t/**@type {import("../bot.js").Command} */
+/**@type {import("../bot.js").Command} */
 export const data = {
   name: "release",
   type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
@@ -36,7 +36,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({});
+  await interaction.deferReply({ephemeral: true});
   if (interaction.options.get("peacetime").value.toLowerCase() == "normal") {
     var pt = "Normal";
     var frp = 80;
@@ -60,7 +60,7 @@ export async function execute(interaction, client) {
   const msg = await interaction.channel?.send({
     content: "@here",
     embeds: resp_embed,
-    allowedMentions: { parse: ["here"] },
+    allowedMentions: { parse: ["everyone"] },
   });
 
   await interaction.deleteReply();

@@ -14,6 +14,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
+  await interaction.deferReply({ ephemeral: true });
   const user = interaction.member;
 
   /**@type {import("discord.js").APIEmbed[]} */
