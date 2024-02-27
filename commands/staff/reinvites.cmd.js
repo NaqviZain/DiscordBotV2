@@ -1,3 +1,5 @@
+import { Embeds } from "../data/mongodb.js";
+
 /**@type {import("../bot.js").Command} */
 export const data = {
   name: "reinvites",
@@ -36,7 +38,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply({});
   if (interaction.options.get("peacetime").value.toLowerCase() == "normal") {
     var pt = "Normal";
     var frp = 80;
@@ -48,18 +50,23 @@ export async function execute(interaction, client) {
   }
   const link = interaction.options.getString("link", true);
 
+
+  const joinSession = `[Join Session](${link})`;
+  
+
   /**@type {import("discord.js").APIEmbed[]} */
   const resp_embed = [
     {
       title: "Session Re-Invites",
-      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.`,
+      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.\n\n> ${joinSession}`,
       color: client.settings.color,
     },
   ];
 
   const msg = await interaction.channel?.send({
-    content: "@.everyone",
+    content: "@here",
     embeds: resp_embed,
+    allowedMentions: { parse: ["everyone", "roles", "users"] },
   });
 
   await interaction.deleteReply();

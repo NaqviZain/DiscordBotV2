@@ -1,5 +1,4 @@
 import { Message } from "discord.js";
-import Config from "../schemas/config_schema.js";
 
 /**@type {import("../bot.js").Command} */
 export const data = {
@@ -26,7 +25,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({})
+  await interaction.deferReply({ ephemeral: true });
   const reactions = interaction.options.getInteger("reactions");
   const user = interaction.member;
 
@@ -39,23 +38,14 @@ export async function execute(interaction, client) {
     },
   ];
 
-  const log = [
-    {
-      title: `Attempted Session Startup`,
-      description: `${interaction.user} has attempted a session startup`,
-      color: 0x00ffff,
-    },
-  ];
-  var resp = await Config.findOne({ config:"config"});
-  if (resp == null) return await interaction.editReply({content:"An error has occured. Failure to connect to database", ephemeral: true})
-  const channel = await client.channels.cache.get(resp['log_channel']); // get the channel from the cache
 
-  channel.send({ embeds: log }); // send the report to the logs channel
 
-  let sending = await interaction.editReply({
-    content: "@.everyone",
+  let sending = await interaction.channel?.send({
+    content: "@everyone",
     embeds: response,
+    allowedMentions: { parse: ["everyone"] },
   });
-  await sending.react('👍');
+  await sending.react("👍");
+  await interaction.deleteReply();
   
 }

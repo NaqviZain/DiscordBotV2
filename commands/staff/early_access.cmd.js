@@ -3,6 +3,14 @@ export const data = {
   name: "early",
   type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
   description: "Start Early Access",
+  options: [
+    {
+      type: 3,
+      name: "link",
+      description: "Link to the session",
+      required: true
+    }
+  ],
   dm_permission: false, // ensures that the command cannot be used inside of dms
   default_member_permissions: 0, // u can use default member permission to lock cmds to certain permission levels, ex administrator, u can use permissionbitfield to get one if u cant via discord docs
 };
@@ -13,36 +21,51 @@ export const data = {
  */
 export async function execute(interaction, client) {
   await interaction.deferReply({ ephemeral: true });
-  /**@type {import("discord.js").APIEmbed[]} */
-  const response = [
+
+
+  /** @type {import("discord.js").APIEmbed[]} */
+  const embed = [
     {
-      description: `**Early Access**\n\n`,
+      description: `**Early Access**`,
+      footer: {
+        text: interaction.guild.name,
+      },
       color: client.settings.color,
-      url: "https://www.google.com/search?q=hello+world",
-    },
+      url: `https://www.google.com/`
+    }
   ];
 
-  /**@type {import("discord.js").APIEmbed[]} */
-  const hidden = [
+  const hiddenEmbed = [
     {
-      description: eaLink,
-      url: "https://www.google.com/search?q=hello+world",
-    },
+      description: interaction.options.getString("link", true),
+      url: "https://www.google.com/"
+    }
   ];
 
-  /**@type {import("discord.js").APIActionRowComponent[]} */
-  const r = [
-    {
-      type: 1,
-      /**@type {import("discord.js").APIButtonComponent[]} */
-      components: [
-        { label: "Early Access", type: 2, style: 1, custom_id:"early_access"},
-      ],
-    },
-  ];
 
+
+/*
+  await interaction.channel?.send({
+    embeds: [...embed, ...hiddenEmbed],
+    components: [
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            style: 2,
+            custom_id: "early_access",
+            label: "Join Session"
+          }
+        ]
+      }
+    ]
+  })
+  */
   await interaction.channel?.send({
     content:`**Centreville Early Access:**\n- Private message <@${interaction.user.id}> for the link to the session. Please be reminded that not everyone will be able to join the server. @everyone \n\n__Pre-Release Limit:__ \n6 Law Enforcement \n2 Greenville Fire Department \n4 Platinum Members`
-  })
-  await interaction.deleteReply();
+  }); 
+  await interaction.deleteReply(); 
+
+
 }

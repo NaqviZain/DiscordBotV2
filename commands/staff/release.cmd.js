@@ -36,7 +36,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply({});
   if (interaction.options.get("peacetime").value.toLowerCase() == "normal") {
     var pt = "Normal";
     var frp = 80;
@@ -52,14 +52,15 @@ export async function execute(interaction, client) {
   const resp_embed = [
     {
       title: "Session Release",
-      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.`,
+      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.\n\n> [Join Session](${link})`,
       color: client.settings.color,
     },
   ];
 
   const msg = await interaction.channel?.send({
-    content: "@.everyone",
+    content: "@everyone",
     embeds: resp_embed,
+    allowedMentions: { parse: ["everyone"] },
   });
 
   await interaction.deleteReply();

@@ -16,6 +16,17 @@ const ticketSchema = new Schema({
     date: { type: Number, default: Date.now() },
 });
 
+
+const embedFormat = new Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    color: { type: String, required: true },
+    footer: { type: String, required: false },
+    type: { type: String, required: true },
+})
+
+export const Embed = model("Embeds", embedFormat);
+
 export const Vehicle = model("Vehicles", vehicleSchema);
 
 export const ticket = model("Tickets", ticketSchema);
