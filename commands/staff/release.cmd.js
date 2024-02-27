@@ -1,4 +1,4 @@
-/**@type {import("../bot.js").Command} */
+t/**@type {import("../bot.js").Command} */
 export const data = {
   name: "release",
   type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
@@ -51,16 +51,16 @@ export async function execute(interaction, client) {
   /**@type {import("discord.js").APIEmbed[]} */
   const resp_embed = [
     {
-      title: "Session Release",
-      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.\n\n> [Join Session](${link})`,
+      title: "Centreville Session Released!",
+      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all <#1099918153531785288> before joining, all rules are strictly enforced.\n\n> [Session Link](${link})`,
       color: client.settings.color,
     },
   ];
 
   const msg = await interaction.channel?.send({
-    content: "@everyone",
+    content: "@here",
     embeds: resp_embed,
-    allowedMentions: { parse: ["everyone"] },
+    allowedMentions: { parse: ["here"] },
   });
 
   await interaction.deleteReply();
