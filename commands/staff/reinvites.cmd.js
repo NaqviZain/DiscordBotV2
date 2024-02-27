@@ -56,7 +56,7 @@ export async function execute(interaction, client) {
   /**@type {import("discord.js").APIEmbed[]} */
   const resp_embed = [
     {
-      title: "Session Re-Invites",
+      title: "Centreville Session Re-Invites!",
       description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all <#1099918153531785288> before joining, all rules are strictly enforced.\n\n> ${joinSession}`,
       color: 0xffffff,
     },
