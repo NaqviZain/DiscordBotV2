@@ -33,17 +33,17 @@ export async function execute(interaction, client) {
   const response = [
     {
       title: "Session Startup",
-      description: `<@${interaction.member.id}> is hosting a session! ${reactions} reactions are required to start the session.`,
-      color: 0xFFC0CB,
+      description: `<@${interaction.member.id}> is hosting a session! 10+ reactions are required for this session to commence.`,
+      color: 0xffffff,
     },
   ];
 
 
 
   let sending = await interaction.channel?.send({
-    content: "@everyone",
+    content: "@here" "@Sessions",
     embeds: response,
-    allowedMentions: { parse: ["everyone"] },
+    allowedMentions: { parse: ["here"] ["Sessions"] },
   });
   await sending.react("👍");
   await interaction.deleteReply();
