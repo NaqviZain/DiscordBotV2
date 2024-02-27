@@ -50,14 +50,14 @@ export async function execute(interaction, client) {
   const link = interaction.options.getString("link", true);
 
 
-  const joinSession = `[Join Session](${link})`;
+  const joinSession = `[Session Link](${link})`;
   
 
   /**@type {import("discord.js").APIEmbed[]} */
   const resp_embed = [
     {
       title: "Session Re-Invites",
-      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.\n\n> ${joinSession}`,
+      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all <#1099918153531785288> before joining, all rules are strictly enforced.\n\n> ${joinSession}`,
       color: 0xffffff,
     },
   ];
@@ -65,7 +65,7 @@ export async function execute(interaction, client) {
   const msg = await interaction.channel?.send({
     content: "@here",
     embeds: resp_embed,
-    allowedMentions: { parse: ["everyone"] },
+    allowedMentions: { parse: ["here"] },
   });
 
   await interaction.deleteReply();
