@@ -31,7 +31,7 @@ export async function execute(interaction, client) {
   let sending = await interaction.channel?.send({
     content: "@here <@&1211464822370082846>",
     embeds: response,
-    allowedMentions: { parse: ["everyone"] ["roles"] },
+    allowedMentions: { parse: ["everyone"], ["roles"] },
   });
   await sending.react("✅");
   await interaction.deleteReply();
