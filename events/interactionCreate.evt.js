@@ -40,7 +40,7 @@ export async function execute(interaction, client) {
     const response = [
       {
         title: "Command Used",
-        description: `**Command:** ${interaction.commandName}\n**User:** ${interaction.user}\n**Options:**\n${optionsList}**Date:** ${new Date().toLocaleString()}`,
+        description: `**Command:** ${interaction.commandName}\n**User:** ${interaction.user}\n**Options:**\n${optionsList}**Date:** <t:${Math.floor(Date.now()/1000)}:f>`,
       }
     ]
     channel.send({ embeds: response})
