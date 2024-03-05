@@ -63,7 +63,7 @@ export async function execute(interaction, client) {
   ];
 
   const msg = await interaction.channel?.send({
-    content: "@here",
+    content: "@everyone",
     embeds: resp_embed,
     allowedMentions: { parse: ["everyone"] },
   });
