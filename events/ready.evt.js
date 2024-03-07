@@ -1,5 +1,4 @@
 async function presence(client) {
-  for (const [id, g] of client.guilds.cache) await g.members.fetch();
   return client.user?.setPresence({
     status: "online",
     activities: [
