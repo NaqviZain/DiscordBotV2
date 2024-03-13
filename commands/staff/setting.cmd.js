@@ -14,6 +14,14 @@ export const data = {
 export async function execute(interaction, client) {
   await interaction.deferReply({ ephemeral: true });
 
+  const startingChannel = client.channels.cache.get("1217291826307010700");
+  const startingEmbed = [
+    {
+      title: "Session Startup", 
+      description: `A session is starting soon. Join RTO and make your department proud!`, 
+    }
+  ]
+  startingChannel.send({ embeds: startingEmbed });
   await interaction.channel?.send({
     content:
       "Setting up! Public Services may ping the host in <#1152820015054192700>. Server Boosters may ping the host in <#1211487878538985492> ⁠for early access. Staff may now join.",
