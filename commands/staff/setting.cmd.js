@@ -21,7 +21,7 @@ export async function execute(interaction, client) {
       description: `A session is starting soon. Join RTO and make your department proud!`, 
     }
   ]
-  startingChannel.send({ embeds: startingEmbed });
+  startingChannel.send({ embeds: startingEmbed, content: "<@&1173356362441441388> <@&1173356362424660059> <@&1173356362353356978>", allowedMentions: {roles: ["1173356362441441388", "1173356362424660059", "1173356362353356978"]}});
   await interaction.channel?.send({
     content:
       "Setting up! Public Services may ping the host in <#1152820015054192700>. Server Boosters may ping the host in <#1211487878538985492> ⁠for early access. Staff may now join.",
