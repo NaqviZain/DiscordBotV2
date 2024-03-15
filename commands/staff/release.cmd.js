@@ -1,4 +1,5 @@
-/**@type {import("../bot.js").Command} */
+/**@type {import("../bot.js").Command} */;
+import io from "@pm2/io"; 
 export const data = {
   name: "release",
   type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
@@ -63,5 +64,20 @@ export async function execute(interaction, client) {
     allowedMentions: { parse: ["everyone"] },
   });
 
+  
+  try{
+  const sessions = io.counter({
+    name: 'Sessions',
+    id: 'app/session/count'
+  });
+  
+  sessions.inc(); 
+  } catch (e) {
+    console.log(e)
+    return await interaction.editReply({content: "An internal error has occured. This will **not** effect your session. Please notify administration", ephemeral: true});
+
+  }
   await interaction.deleteReply();
+
+  
 }
