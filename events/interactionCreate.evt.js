@@ -1,4 +1,4 @@
-import { ButtonBuilder, EmbedBuilder , ActionRowBuilder} from "discord.js";
+import { ButtonBuilder, EmbedBuilder , ActionRowBuilder, ButtonStyle} from "discord.js";
 
 export const data = {
   name: "interactionCreate",
@@ -27,11 +27,7 @@ export async function execute(interaction, client) {
 
   } else if (interaction.isButton()) {
     let button =
-      client.buttons.get(interaction.customId) ||
-      (client.settings.departments.has(interaction.customId)
-        ? client.buttons.get("role_link")
-        : undefined);
-
+      client.buttons.get(interaction.customId) 
     if (!button) return;
     try {
       await button.execute(interaction, client);
@@ -101,12 +97,18 @@ export async function execute(interaction, client) {
         .setStyle(3)
         .setEmoji("🔒");
 
+      const claim_button = new ButtonBuilder()
+        .setCustomId("ticket_claim")
+        .setLabel("Claim Ticket")
+        .setStyle(ButtonStyle.Secondary)
+        .setEmoji("🔒")
+        ;
       
 
       await channel.send({
         content: `<@${interaction.user.id}>`,
         embeds: [embed],
-        components: [new ActionRowBuilder().addComponents(close_button)],
+        components: [new ActionRowBuilder().addComponents(close_button, claim_button)],
         
       });
       await interaction.reply({
@@ -153,6 +155,8 @@ export async function execute(interaction, client) {
         .setLabel("Close Ticket")
         .setStyle(3)
         .setEmoji("🔒");
+
+      
 
       await channel.send({
         content: `<@${interaction.user.id}>`,

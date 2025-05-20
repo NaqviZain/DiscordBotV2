@@ -26,6 +26,7 @@ const modLog = new Schema({
   evidence: { type: String, required: true },
   case: { type: Number, default: null},
   date: { type: Number, default: Date.now() },
+  expires: { type: Date, default: null },
 })
 
 export const modlog = model("modLog", modLog);

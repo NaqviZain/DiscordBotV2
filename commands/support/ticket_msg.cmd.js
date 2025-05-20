@@ -5,16 +5,16 @@ export const data = {
     name: "ticket_msg",
     type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
     description: "send ticket message",
-    dm_permission: false, 
-    default_member_permissions: 0, 
-  };
-  /**
-   *
-   * @param {import("discord.js").ChatInputCommandInteraction<'cached'>} interaction
-   * @param {import("../bot.js").Bot} client
-   */
-  export async function execute(interaction, client) {
-    await interaction.deferReply({ ephemeral: true }); 
+    dm_permission: false,
+    default_member_permissions: 0,
+};
+/**
+ *
+ * @param {import("discord.js").ChatInputCommandInteraction<'cached'>} interaction
+ * @param {import("../bot.js").Bot} client
+ */
+export async function execute(interaction, client) {
+    await interaction.deferReply({ ephemeral: true });
 
     const support = client.channels.cache.get(client.settings.support);
     if (!support) return await interaction.editReply({ content: "Support channel not found", ephemeral: true });
@@ -39,12 +39,11 @@ export const data = {
                 .setDescription("Report a staff member")
                 .setEmoji("🛠️"),
         )
-    
+
     const row = new ActionRowBuilder().addComponents(select)
 
     await support.send({ embeds: [embed], components: [row] });
 
     await interaction.editReply({ content: "Ticket message sent", ephemeral: true });
-    
-  }
-  
+
+}
