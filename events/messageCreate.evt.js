@@ -26,9 +26,6 @@ export async function execute(message, client) {
                 }
             ];
 
-            await message?.reply({ embeds: e, allowedMentions: { parse: ["users", "roles", "everyone"] }, content: "hello world" });
-                /*await client?.user?.setAvatar("https://cdn.discordapp.com/icons/1099918152592261272/2f9818deb03f5021d6f61bdc6e58dd75.png"),
-                await message.channel?.send({ content: "Successfully Changed Profile Picture" });*/
         }
     }
 }

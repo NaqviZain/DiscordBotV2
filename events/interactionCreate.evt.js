@@ -1,3 +1,5 @@
+import { ButtonBuilder, EmbedBuilder , ActionRowBuilder} from "discord.js";
+
 export const data = {
   name: "interactionCreate",
 };
@@ -21,32 +23,7 @@ export async function execute(interaction, client) {
       });
     }
 
-    try{
-      
-    const channel = client.channels.cache.get(client.settings.log_channel); // get the channel from the ca
-    const optionsData = interaction.options.data || [];
-
-// Construct options list string
-    let optionsList = "";
-    optionsData.forEach(option => {
-      // Check if the option is a user
-      if (option.type === 'USER') {
-        optionsList += `${option.name}: <@${option.value}>\n`;
-      } else {
-        optionsList += `${option.name}: ${option.value}\n`;
-      }
-    });
-
-    const response = [
-      {
-        title: "Command Used",
-        description: `**Command:** ${interaction.commandName}\n**User:** ${interaction.user}\n**Options:**\n${optionsList}**Date:** <t:${Math.floor(Date.now()/1000)}:f>`,
-      }
-    ]
-    channel.send({ embeds: response})
-  } catch (error) {
-    console.log("Logging failed.\n" + error);
-  }
+   
 
   } else if (interaction.isButton()) {
     let button =
@@ -85,6 +62,107 @@ export async function execute(interaction, client) {
     if (!interaction.isMessageContextMenuCommand()) return;
     console.log(interaction);
   } else if (interaction.isModalSubmit()) {
-    console.log(interaction); // data needs to be put here for modal submits
+    if (!interaction.isModalSubmit()) return;
+    if (interaction.customId == "ticket_modalsupport") {
+      const embed = new EmbedBuilder()
+        .setColor(client.settings.color)
+        .setTitle("Support Ticket")
+        .setTimestamp();
+      const description = interaction.fields.getTextInputValue("ticket_input_description");
+      embed.addFields({
+        name: "Description",
+        value: description,
+      });
+
+      // create channel 
+      const channel = await interaction.guild.channels.create({
+        name: `ticket-${interaction.user.username}`,
+        type: 0,
+        parent: client.settings.support_category,
+        permissionOverwrites: [
+          {
+            id: interaction.guild.id,
+            deny: ["ViewChannel"],
+          },
+          {
+            id: interaction.user.id,
+            allow: ["ViewChannel"],
+          },
+          {
+            id: client.settings.staff_role,
+            allow: ["ViewChannel"],
+          }
+        ],
+      });
+
+      const close_button = new ButtonBuilder()
+        .setCustomId("close_ticket")
+        .setLabel("Close Ticket")
+        .setStyle(3)
+        .setEmoji("🔒");
+
+      
+
+      await channel.send({
+        content: `<@${interaction.user.id}>`,
+        embeds: [embed],
+        components: [new ActionRowBuilder().addComponents(close_button)],
+        
+      });
+      await interaction.reply({
+        content: `Ticket created <#${channel.id}>`,
+        ephemeral: true,
+      });
+    }
+  if (interaction.customId == "ticket_modalstaff_support") {
+      const embed = new EmbedBuilder()
+        .setColor(client.settings.color)
+        .setTitle("Staff Report Ticket")
+        .setTimestamp();
+      const user_id = interaction.fields.getTextInputValue("ticket_input_user_id");
+      const reason = interaction.fields.getTextInputValue("ticket_input_reason");
+      embed.addFields({
+        name: "User ID",
+        value: user_id,
+      });
+      embed.addFields({
+        name: "Reason",
+        value: reason,
+      });
+
+
+      // create channel 
+      const channel = await interaction.guild.channels.create({
+        name: `ticket-${interaction.user.username}`,
+        type: 0,
+        parent: client.settings.staff_report_category,
+        permissionOverwrites: [
+          {
+            id: interaction.guild.id,
+            deny: ["ViewChannel"],
+          },
+          {
+            id: interaction.user.id,
+            allow: ["ViewChannel"],
+          },
+        ],
+      });
+
+      const close_button = new ButtonBuilder()
+        .setCustomId("close_ticket")
+        .setLabel("Close Ticket")
+        .setStyle(3)
+        .setEmoji("🔒");
+
+      await channel.send({
+        content: `<@${interaction.user.id}>`,
+        embeds: [embed],
+        components: [new ActionRowBuilder().addComponents(close_button)],
+      });
+      await interaction.reply({
+        content: `Ticket created <#${channel.id}>`,
+        ephemeral: true,
+      });
+    }
   }
 }

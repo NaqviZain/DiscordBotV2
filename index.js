@@ -11,14 +11,12 @@ config();
     client.settings = {
         color: 0x121212, // put color hex here for embeds n shit wo #
         iconURL: '',
-        vehicles: (await import("./data/vehicles.json", { assert: { type: "json" } })).default,
-        vehicleColors: (await import("./data/vehicleColors.json", { assert: { type: "json" } })).default,
-        vehicleLimits: {
-            regular: 6,
-            special: 8
-        },
-        log_channel: `1214587396654506065`,
-        early_roles: [1100033573211349044, 1099918152990732290, 1099918152990732296, 1184863530504163328, 1207328977379663902], 
+        staff_role: `1374180587882938398`,
+        support: `1374181526450737223`,
+        admin_role: `1374111998802923720`,
+        support_category: `1374181495983312908`,
+        staff_report_category: `1374378264474419270`,
+        transcript_channel: `1374394092993122304`
     };
     await client.init();
 })();
