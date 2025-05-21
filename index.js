@@ -25,7 +25,28 @@ config();
             { id: '1374490650770411641', name: 'FD' }
         ],
         role_request_channel: `1374494055475707934`,
-        role_request: `1374495147340992626`
+        role_request: `1374495147340992626`,
+        ps_ticket_logs: `1374561219029106819`,
+        income_roles: {
+            '1374757878585622698': 500,
+        },
+        shop: [
+            {
+                type: 'add_role',
+                name: 'Image Perms',
+                description: 'Allows you to send images in the server',
+                price: 1000,
+                roleId: '1374847221077381290',
+                emokji: '🖼️',
+            },
+            {
+                type: 'item',
+                name: 'Pickle',
+                description: 'A pickle',
+                price: 100,
+                emoji: '🥒',
+            }
+        ]
     };
     await client.init();
 })();
