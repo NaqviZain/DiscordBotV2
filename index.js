@@ -11,21 +11,21 @@ config();
     client.settings = {
         color: 0x121212, // put color hex here for embeds n shit wo #
         iconURL: '',
-        staff_role: `1374180587882938398`,
-        support: `1374181526450737223`,
-        admin_role: `1374111998802923720`,
-        support_category: `1374181495983312908`,
-        staff_report_category: `1374378264474419270`,
-        transcript_channel: `1374394092993122304`,
+        staff_role: `1355939357273358467`,
+        support: `1355939357273358467`,
+        admin_role: `1355939356069597353`,
+        support_category: `1361082463710875839`,
+        staff_report_category: `1374548918578450482`,
+        transcript_channel: `1323890715683459093`,
         rto_ping: `1374477831005929692`,
-        log_channel: `1374480953073991700`,
+        log_channel: `1342894245656395858`,
         ps_roles: [
             { id: '1374490564137062450', name: 'WSP' },
             { id: '1374490615965945977', name: 'OCSO' },
             { id: '1374490650770411641', name: 'FD' }
         ],
-        role_request_channel: `1374494055475707934`,
-        role_request: `1374495147340992626`
+        role_request_channel: `1369409536846331914`,
+        role_request: `1355939356069597353`
     };
     await client.init();
 })();
