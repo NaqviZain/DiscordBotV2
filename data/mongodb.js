@@ -16,6 +16,7 @@ const ticketSchema = new Schema({
     fine: { type: Number, default: "" },
     case: { type: Number, default: null},
     date: { type: Number, default: Date.now() },
+    report_num: { type: Number, default: null },
 });
 
 const modLog = new Schema({
@@ -29,8 +30,18 @@ const modLog = new Schema({
   expires: { type: Date, default: null },
 })
 
+const economyProfile = new Schema({
+  userId: { type: String, required: true },
+  balance: { type: Number, default: 0 },
+  bank: { type: Number, default: 0 },
+  inventory: { type: Array, default: [] },
+  workCooldown: { type: Date, default: null},
+  claimCooldown: { type: Date, default: null},
+});
 export const modlog = model("modLog", modLog);
 
 export const vehicle = model("Vehicles", vehicleSchema);
 
 export const ticket = model("Tickets", ticketSchema);
+
+export const economy = model("Economy", economyProfile);

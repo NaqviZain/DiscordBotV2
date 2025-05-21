@@ -1,7 +1,7 @@
 /**@type {import("../bot.js").Command} */
 export const data = {
   name: "",
-  type: 1, // u got 3 types, 1 is reg cmd, 2 is msg app, 3 is user app
+  type: 1, // 1 is reg cmd, 2 is msg app, 3 is user app
   description: "",
   options: [
     {

@@ -24,8 +24,8 @@ config();
             { id: '1374490615965945977', name: 'OCSO' },
             { id: '1374490650770411641', name: 'FD' }
         ],
-        role_request_channel: `1369409536846331914`,
-        role_request: `1355939356069597353`
+        role_request_channel: `1374494055475707934`,
+        role_request: `1374495147340992626`
     };
     await client.init();
 })();
