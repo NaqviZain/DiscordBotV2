@@ -158,7 +158,16 @@ export const data = new SlashCommandBuilder()
         )
   )
   .addSubcommand(sub =>
-    sub.setName("end").setDescription("End the session"));
+    sub.setName("end")
+      .setDescription("End the session")
+      .addStringOption(option =>
+        option.setName("duration")
+          .setDescription("Duration of the session")
+          .setRequired(true)
+      )
+  );
+
+    
 
 export async function execute(interaction, client) {
   const sub = interaction.options.getSubcommand();
@@ -188,7 +197,7 @@ if (sub === "start") {
   });
 
   const startupMessage = await interaction.channel.send({
-    content: "<@&1221331841416429609> ",
+    content: "@everyone ",
     embeds: [embed],
     allowedMentions: { parse: ["roles", "users", "everyone"] },
   });
@@ -291,7 +300,7 @@ const linkRegex = /^https:\/\/www\.roblox\.com/;
     .setImage("https://media.discordapp.net/attachments/825814443426054205/1231375168450859069/release-1.png");
 
   const msg = await interaction.channel.send({
-    content: "<@&1221331841416429609>",
+    content: "@here",
     embeds: [baseEmbed],
     allowedMentions: { parse: ["roles", "users", "everyone"] },
     components: [
@@ -389,7 +398,7 @@ if (sub === "end") {
     new ButtonBuilder()
       .setLabel("Session Feedback")
       .setStyle(ButtonStyle.Link)
-      .setURL("https://forms.gle/zYzwBms4vdxa6inu8")
+      .setURL("https://discord.com/channels/992519039442223124/1355933066069283006")
   );
 
   await interaction.reply({ content: "Command sent successfully.", ephemeral: true });
