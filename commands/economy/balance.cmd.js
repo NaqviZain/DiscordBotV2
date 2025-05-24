@@ -36,7 +36,7 @@ export const data = {
 
     const embed = new EmbedBuilder()
       .setColor('#95a5a6')
-      .setTitle(`${interaction.user.username}'s Balance`)
+      .setTitle(`${user.username}'s Balance`)
       .addFields(
         { name: 'Cash:', value: `$${balance}`, inline: true },
         { name: 'Bank:', value: `$${bank}`, inline: true },

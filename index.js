@@ -64,13 +64,6 @@ config();
                 description: 'A pickle',
                 price: 800,
                 emoji: '🗒️',
-            },
-                        {
-                type: 'item',
-                name: 'Handicap Parking Permit',
-                description: 'Ability to park on handicap parking.',
-                price: 10000,
-                emoji: '🗒️',
             }
         ]
     };
