@@ -1,4 +1,5 @@
 import { vehicle, ticket, economy } from "../../data/mongodb.js";
+let robloxAvatarURL;
 
 /**@type {import("../bot.js").Command} */
 export const data = {
@@ -23,9 +24,47 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
+
+
+
   await interaction.deferReply({ ephemeral: false });
   if (interaction.options.get("user") == null) {
     var user = interaction.user;
+var BLOXLINK_API_KEY = "bc88bfb4-979d-4978-976a-754fd21302a6";
+var SERVER_ID = "992519039442223124";
+
+// Get Roblox ID from Bloxlink
+const robloxIDResponse = await fetch(`https://api.blox.link/v4/public/guilds/${SERVER_ID}/discord-to-roblox/${user.id}`, {
+  headers: {
+    "Authorization": BLOXLINK_API_KEY,
+  }
+});
+
+if (!robloxIDResponse.ok) {
+  return await interaction.editReply("Failed to fetch Roblox ID.");
+}
+var robloxIDData = await robloxIDResponse.json();
+var robloxID = robloxIDData.robloxID;
+
+// Fetch Roblox profile info
+const robloxProfileResponse = await fetch(`https://users.roblox.com/v1/users/${robloxID}`);
+if (!robloxProfileResponse.ok) {
+  return await interaction.editReply("Failed to fetch Roblox profile.");
+}
+var robloxProfileData = await robloxProfileResponse.json();
+var robloxUsername = robloxProfileData.name;
+var robloxProfileURL = `https://www.roblox.com/users/${robloxID}/profile`;
+
+// Roblox avatar
+try {
+  const _Fetch = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-bust?userids=${robloxID}&size=420x420&format=Png&isCircular=false`);
+  const response = await _Fetch.json();
+  robloxAvatarURL = response.data[0].imageUrl;
+} catch (e) {
+  console.error(e);
+}
+
+
   } else if (interaction.options.get("user") != null) {
     var user = interaction.options.get("user").user;
   }
@@ -49,28 +88,37 @@ export async function execute(interaction, client) {
 
 
   /**@type {import("discord.js").APIEmbed[]} */
-  const response = [
-    {
-      description: `
-        ${user.displayName}
-        ID: \`${user.id}\`
-        Registered Vehicles: \`${vehicles.length}\`
-        Citations: \`${tickets.length}\`
-
-        **Balance**
-        $${profile.balance + profile.bank}
-
-        **Items**
-        ${profile.inventory.length == 0 ? "No items" : profile.inventory.map((item) => `\`${item}\``).join("\n")}
-
-      `,
-      color: client.settings.color,
-      thumbnail: {
-        url: interaction.guild.iconURL({ dynamic: true }),
-      },
+const response = [
+  {
+  description: `
+[${robloxUsername}](${robloxProfileURL})
+ID: \`${robloxID}\`
+Registered Vehicles: \`${vehicles.length}\`
+Citations: \`${tickets.length}\`
+`,
+    thumbnail: {
+      url: robloxAvatarURL ,
     },
-  ];
+        color: client.settings.color,
+fields: [
+  {
+    name: "Balance",
+    value: `$${profile.balance + profile.bank}`,
+    inline: false,
+  },
+  {
+    name: "Items",
+    value:
+      profile.inventory.length === 0
+        ? "No items"
+        : profile.inventory.map((item) => `\`${item}\``).join("\n"),
+    inline: false,
+  },
+],
 
+
+  },
+];
   const r = [
     {
       type: 1,
@@ -163,9 +211,32 @@ export async function execute(interaction, client) {
     }
   });
 
-  collector.on("end", async (collected, reason) => {
-    if (reason == "time") {
-      interaction.deleteReply();
-    }
-  });
+collector.on("end", async (collected, reason) => {
+  if (reason === "time") {
+    const disabledComponents = [
+      {
+        type: 1,
+        components: [
+          {
+            label: "Citations",
+            type: 2,
+            style: 1,
+            custom_id: "citations",
+            disabled: true,
+          },
+          {
+            label: "Registered Vehicles",
+            type: 2,
+            style: 1,
+            custom_id: "registered_vehicles",
+            disabled: true,
+          },
+        ],
+      },
+    ];
+
+    await interaction.editReply({ components: disabledComponents });
+  }
+});
+
 }

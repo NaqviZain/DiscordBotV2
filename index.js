@@ -9,42 +9,67 @@ config();
         intents: 3276799, // ALL intents via - https://discord-intents-calculator.vercel.app/
     });
     client.settings = {
-        color: 0x121212, // put color hex here for embeds n shit wo #
+        color: 0x95a5a6, // put color hex here for embeds n shit wo #
         iconURL: '',
         staff_role: `1355939357273358467`,
-        support: `1355939357273358467`,
+        startup_channel: `1323890631021690931`,
+        support: `1374909829100867614`,
         admin_role: `1355939356069597353`,
         support_category: `1361082463710875839`,
         staff_report_category: `1374548918578450482`,
         transcript_channel: `1323890715683459093`,
         rto_ping: `1374477831005929692`,
-        log_channel: `1342894245656395858`,
+        log_channel: `1374941313740443729`,
+        strike1: `1355940153671286794`,
+        strike2: `1355940153973018664`,
+        strike3: `1355940155009007666`,
+                Jailed: `1374934936427167764`,
+
         ps_roles: [
-            { id: '1374490564137062450', name: 'WSP' },
-            { id: '1374490615965945977', name: 'OCSO' },
-            { id: '1374490650770411641', name: 'FD' }
+            { id: '1355939359957717050', name: 'WSP' },
+            { id: '1355940150823092295', name: 'OCSO' },
+            { id: '1355940150999253182', name: 'FD' },
+            { id: '1374129668382523522', name: 'NPS' }, 
+            { id: '1355940151871930368', name: 'NPS' },
         ],
-        role_request_channel: `1374494055475707934`,
-        role_request: `1374495147340992626`,
-        ps_ticket_logs: `1374561219029106819`,
+        role_request_channel: `1369409536846331914`,
+        role_request: `1373450361754615869`,
+        ps_ticket_logs: `1345445630067081407`,
         income_roles: {
-            '1374757878585622698': 500,
+            '1374129668382523522': 300, //NPS
+            '1355939359957717050': 300, //WSP
+            '1355940150823092295': 300, //OCSO
+            '1355940150999253182': 300, //FD
+            '1355940151871930368': 300, //DOT
+            '1323890531927068786': 250, //Civilian
+            '1374416068012933170': 100, //Contributor
+            '1355939357273358467': 200, //Server Staff
+            '1355939359630692553': 150, //Senior Staff + 150(Sub-role)
+            '1374200095171412008': 500, //Staff Supervisor
+            '1355939356069597353': 800, //BOD  
         },
         shop: [
             {
                 type: 'add_role',
                 name: 'Image Perms',
                 description: 'Allows you to send images in the server',
-                price: 1000,
-                roleId: '1374847221077381290',
+                price: 60000,
+                roleId: '1374129667384152084',
                 emokji: '🖼️',
             },
             {
                 type: 'item',
-                name: 'Pickle',
+                name: 'Vehicle Insurance',
                 description: 'A pickle',
-                price: 100,
-                emoji: '🥒',
+                price: 800,
+                emoji: '🗒️',
+            },
+                        {
+                type: 'item',
+                name: 'Handicap Parking Permit',
+                description: 'Ability to park on handicap parking.',
+                price: 10000,
+                emoji: '🗒️',
             }
         ]
     };

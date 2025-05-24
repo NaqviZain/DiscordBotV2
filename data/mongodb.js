@@ -38,6 +38,33 @@ const economyProfile = new Schema({
   workCooldown: { type: Date, default: null},
   claimCooldown: { type: Date, default: null},
 });
+
+const jailedSchema = new Schema({
+  userId: { type: String, required: true, unique: true },
+  date: { type: Number, default: Date.now() },
+});
+
+const strikeSchema = new Schema({
+  userId: { type: String, required: true, unique: true },
+  strikes: { type: [String], default: [] }, // array of role IDs
+  date: { type: Number, default: Date.now() },
+});
+
+const startupSessionSchema = new Schema({
+  messageId: { type: String, required: true },
+  channelId: { type: String, required: true },
+  reactions: { type: [String], default: [] }, // user IDs who reacted
+  createdAt: { type: Date, default: Date.now },
+});
+
+export const startupSessions = model("StartupSessions", startupSessionSchema);
+
+
+export const strikes = model("Strikes", strikeSchema);
+
+
+export const jailed = model("jailed", jailedSchema);
+
 export const modlog = model("modLog", modLog);
 
 export const vehicle = model("Vehicles", vehicleSchema);

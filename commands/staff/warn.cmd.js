@@ -1,4 +1,4 @@
-import { modlog } from "../../data/mongodb.js";
+import { modlog, jailed, strikes } from "../../data/mongodb.js";
 
 /**@type {import("../bot.js").Command} */
 export const data = {
@@ -30,8 +30,8 @@ export const data = {
       required: true,
       type: 3,
       choices: [
-        {name: "Discord", value: "Discord"},
-        {name: "Ingame", value: "Ingame"},
+        {name: "Warning", value: "Warning"},
+        {name: "Infraction", value: "Infraction"},
       ]
     }
   ],
@@ -49,16 +49,96 @@ export async function execute(interaction, client) {
   const reason = interaction.options.getString("reason");
   const evidence = interaction.options.getString("evidence");
   const count = await modlog.countDocuments({});
-  
+  const infractionType = interaction.options.get("type").value;
+
   if(!interaction.member.roles.cache.has(client.settings.staff_role)) return await interaction.editReply({ content: "You do not have permission to use this command. If you are a staff member this means you do not have the ``Staff Team`` role", ephemeral: true });
 
-  /**@type {import("discord.js").APIEmbed[]} */
-  const response = [
-    {
-      description: `You were warned in Centreville for **${reason}**\n\n> Evidence: ${evidence}`,
-      color: client.settings.color,
-    },
-  ];
+  // --- STRIKE HANDLING ---
+let strikeNote = "";
+if (infractionType === "Infraction") {
+  const member = await interaction.guild.members.fetch(user.id);
+  const roles = member.roles.cache;
+
+  const hasStrike1 = roles.has(client.settings.strike1);
+  const hasStrike2 = roles.has(client.settings.strike2);
+  const hasStrike3 = roles.has(client.settings.strike3);
+
+  if (!hasStrike1) {
+    await member.roles.add(client.settings.strike1);
+    strikeNote = `**Strike 1 issued.**`;
+
+    await strikes.updateOne(
+      { userId: user.id },
+      { $addToSet: { strikes: client.settings.strike1 }, $setOnInsert: { date: Date.now() } },
+      { upsert: true }
+    );
+  } else if (!hasStrike2) {
+    await member.roles.add(client.settings.strike2);
+    strikeNote = `**Strike 2 issued.**`;
+
+    await strikes.updateOne(
+      { userId: user.id },
+      { $addToSet: { strikes: client.settings.strike2 }, $setOnInsert: { date: Date.now() } },
+      { upsert: true }
+    );
+  } else if (!hasStrike3) {
+    await member.roles.add(client.settings.strike3);
+    strikeNote = `**Strike 3 issued.**`;
+
+    await strikes.updateOne(
+      { userId: user.id },
+      { $addToSet: { strikes: client.settings.strike3 }, $setOnInsert: { date: Date.now() } },
+      { upsert: true }
+    );
+  } else {
+    // Already has all 3 strikes → jail them
+    strikeNote = `**Jailed issued.**`;
+
+    const roleIds = member.roles.cache
+      .filter(r => r.id !== interaction.guild.id)
+      .map(r => r.id);
+
+    try {
+      await member.roles.set([client.settings.Jailed]);
+
+      await jailed.updateOne(
+        { userId: user.id },
+        { $setOnInsert: { userId: user.id, date: Date.now() } },
+        { upsert: true }
+      );
+    } catch (e) {
+      console.error("Failed to jail user or update DB:", e);
+    }
+  }
+}
+
+
+
+
+/**@type {import("discord.js").APIEmbed[]} */
+const response = [
+  {
+    description: `You were warned in **Centreville** for ${reason} | ${strikeNote} \n\n> Evidence: ${evidence}`,
+    color: 0xff0000,
+  },
+];
+
+/**@type {import("discord.js").APIActionRowComponent[]} */
+const components = [
+  {
+    type: 1, // ActionRow
+    components: [
+      {
+        type: 2, // Button
+        label: "Centreville Moderation",
+        style: 2, // Secondary (gray)
+        custom_id: "centreville_mod", // required even if disabled
+        disabled: true,
+      },
+    ],
+  },
+];
+
 
   /**@type {import("discord.js").APIEmbed[]} */
   const resp = [
@@ -88,9 +168,11 @@ export async function execute(interaction, client) {
     ephemeral: true,
   })
   try {
-    await user.send({
-      embeds: response,
-    });
+await user.send({
+  embeds: response,
+  components: components, // ✅ make sure this is included
+});
+
   } catch (e) {
     console.log("Could not send DM to user");
   }

@@ -38,7 +38,7 @@ export async function execute(interaction, client) {
     const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
     const embed = new EmbedBuilder()
-      .setColor('#6c78fc')
+      .setColor('#95a5a6')
       .setDescription(`⏳ You cannot collect income for another **${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}, and ${seconds} second${seconds !== 1 ? 's' : ''}**.`);
 
     return await interaction.editReply({ embeds: [embed] });
@@ -64,7 +64,7 @@ export async function execute(interaction, client) {
 
   // Format embed
   const embed = new EmbedBuilder()
-    .setColor('#6c78fc')
+    .setColor('#95a5a6')
     .setAuthor({
       name: interaction.user.username,
       iconURL: interaction.user.displayAvatarURL({ dynamic: true })

@@ -35,7 +35,7 @@ export const data = {
     const bank = userProfile.bank;
 
     const embed = new EmbedBuilder()
-      .setColor('#6c78fc')
+      .setColor('#95a5a6')
       .setTitle(`${interaction.user.username}'s Balance`)
       .addFields(
         { name: 'Cash:', value: `$${balance}`, inline: true },
