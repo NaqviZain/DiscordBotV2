@@ -65,7 +65,7 @@ if (infractionType === "Infraction") {
 
   if (!hasStrike1) {
     await member.roles.add(client.settings.strike1);
-    strikeNote = `**Strike 1 issued.**`;
+    strikeNote = `**Infraction 1 issued.**`;
 
     await strikes.updateOne(
       { userId: user.id },
@@ -74,7 +74,7 @@ if (infractionType === "Infraction") {
     );
   } else if (!hasStrike2) {
     await member.roles.add(client.settings.strike2);
-    strikeNote = `**Strike 2 issued.**`;
+    strikeNote = `**Infraction 2 issued.**`;
 
     await strikes.updateOne(
       { userId: user.id },
@@ -83,7 +83,7 @@ if (infractionType === "Infraction") {
     );
   } else if (!hasStrike3) {
     await member.roles.add(client.settings.strike3);
-    strikeNote = `**Strike 3 issued.**`;
+    strikeNote = `**Infraction 3 issued.**`;
 
     await strikes.updateOne(
       { userId: user.id },

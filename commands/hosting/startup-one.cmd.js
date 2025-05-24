@@ -297,7 +297,6 @@ const linkRegex = /^https:\/\/www\.roblox\.com/;
       text: interaction.guild.name,
       iconURL: interaction.guild.iconURL({ dynamic: true }),
     })
-    .setImage("https://media.discordapp.net/attachments/825814443426054205/1231375168450859069/release-1.png");
 
   const msg = await interaction.channel.send({
     content: "@here",
@@ -391,7 +390,6 @@ if (sub === "end") {
     .setDescription(
       `> Thank you for attending the session & has now been concluded by <@${interaction.user.id}>.\n> Feel free to provide session feedback by clicking the button below.\n\n**Duration:** ${duration}`
     )
-    .setImage("https://media.discordapp.net/attachments/979052032210120815/1265035786588393601/Copy_of_SWFL_STARTUP.png?ex=66b67562&is=66b523e2&hm=c8f8ed500125672871f09ddce57d28254b93ad22d8f06559198633048f4c44ac&=&format=webp&quality=lossless")
     .setFooter({ text: `Host: ${interaction.user.tag}` });
 
   const row = new ActionRowBuilder().addComponents(
